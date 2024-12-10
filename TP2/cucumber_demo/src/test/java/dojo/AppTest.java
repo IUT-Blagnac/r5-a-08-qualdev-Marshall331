@@ -1,4 +1,4 @@
-package com;
+package dojo;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
