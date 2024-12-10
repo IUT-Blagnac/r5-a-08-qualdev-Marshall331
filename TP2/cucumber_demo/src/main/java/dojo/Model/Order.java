@@ -29,4 +29,10 @@ public class Order {
     public List<String> getCocktails() {
         return this.cocktails;
     }
+
+    public void addCocktails(int expectedCocktailCount) {
+        for (int i = 0; i < expectedCocktailCount; i++) {
+            this.cocktails.add("cocktails");
+        }
+    }
 }
