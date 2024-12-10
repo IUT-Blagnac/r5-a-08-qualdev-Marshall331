@@ -101,3 +101,6 @@ Feature: Cocktail Ordering
 
 
 === Passage des tests
+
+image::https://github.com/IUT-Blagnac/r5-a-08-qualdev-Marshall331/blob/main/TP2/Image%20tests.png[alt="Passage des tests réussis"]
+
