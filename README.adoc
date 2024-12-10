@@ -2,7 +2,7 @@
 :icons: font
 :MoSCoW: https://fr.wikipedia.org/wiki/M%C3%A9thode_MoSCoW[MoSCoW]
 
-Ce dépôt concerne les rendus de mailto:A_changer@etu.univ-tlse2.fr[Jonh Doe].
+Ce dépôt concerne les rendus de mailto:ahmad.khalil@etu.univ-tlse2.fr[Ahmad KHALIL (1B)].
 
 == TP1
 
@@ -12,7 +12,7 @@ image::https://github.com/IUT-Blagnac/r5-a-08-qualdev-Marshall331/blob/main/TP1/
 
 Passage des tests : 
 
-image::https://github.com/IUT-Blagnac/r5-a-08-qualdev-Marshall331/blob/main/TP1/Code%20image%20feature.png[]
+image::https://github.com/IUT-Blagnac/r5-a-08-qualdev-Marshall331/blob/main/TP1/Code%20image%20tests%20success.png[]
 
 
 .Code de la feature : 
