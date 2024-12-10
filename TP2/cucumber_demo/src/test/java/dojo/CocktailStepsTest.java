@@ -13,21 +13,31 @@ public class CocktailStepsTest {
     private Order order;
 
     @Given("{string} who wants to buy a drink")
-    public void person_who_wants_to_buy_a_drink(String name) {
+    public void person_who_wants_to_buy_a_drink(String from) {
         order = new Order();
-        order.declareOwner(name); 
+        order.declareOwner(from);
     }
 
     @When("an order is declared for {string}")
-    public void an_order_is_declared_for_person(String target) {
-        order.declareTarget(target); 
+    public void an_order_is_declared_for(String to) {
+        order.declareTarget(to);
     }
 
-    @Then("there is {int} cocktail in the order")
-    public void there_are_cocktails_in_the_order(int _expectedCocktailCount) {
-        order.addCocktails(_expectedCocktailCount);
-        
+    @Then("there is {int} cocktails in the order")
+    public void there_are_cocktails_in_the_order(int nbCocktails) {
+        order.addCocktails(nbCocktails);
+
         List<String> cocktails = order.getCocktails();
-        assertEquals(_expectedCocktailCount, cocktails.size()); 
+        assertEquals(nbCocktails, cocktails.size());
+    }
+
+    @When("a message saying {string} is added")
+    public void a_message_saying_is_added(String message) {
+        order.setDeliverMessage(message);
+    }
+
+    @Then("the ticket must say {string}")
+    public void the_ticket_must_say(String expected) {
+        assertEquals(expected, order.getDeliverMessage());
     }
 }

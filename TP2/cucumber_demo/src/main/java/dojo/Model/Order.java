@@ -8,6 +8,8 @@ public class Order {
     private String owner = "";
     private String target = "";
 
+    private String deliverMessage = "";
+
     private List<String> cocktails = new ArrayList<>();
 
     public void declareOwner(String _owner) {
@@ -34,5 +36,13 @@ public class Order {
         for (int i = 0; i < expectedCocktailCount; i++) {
             this.cocktails.add("cocktails");
         }
+    }
+
+    public void setDeliverMessage(String message) {
+        this.deliverMessage ="From " +  this.owner + " " + "to " + this.target + ": " + message;
+    }
+
+    public String getDeliverMessage(){
+        return this.deliverMessage;
     }
 }
