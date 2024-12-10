@@ -6,7 +6,16 @@ Ce dépôt concerne les rendus de mailto:A_changer@etu.univ-tlse2.fr[Jonh Doe].
 
 == TP1
 
-.Exemple de code
+Code du fichier feature : 
+
+image::https://github.com/IUT-Blagnac/r5-a-08-qualdev-Marshall331/blob/main/TP1/Code%20image%20feature.png[]
+
+Passage des tests : 
+
+image::https://github.com/IUT-Blagnac/r5-a-08-qualdev-Marshall331/blob/main/TP1/Code%20image%20feature.png[]
+
+
+.Code de la feature : 
 [source,java]
 ---
 @Given("today is Sunday")
