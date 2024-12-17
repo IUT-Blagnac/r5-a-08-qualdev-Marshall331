@@ -8,6 +8,7 @@ import cucumber.api.junit.Cucumber;
 @RunWith(Cucumber.class)
 @CucumberOptions(
     features = "src/main/ressources/dojo", // Dossier contenant le fichier .feature
-    glue = "dojo")
+    glue = "dojo",
+    plugin = {"json:target/cucumber.json"})
 public class RunCucumberTest {
 }
