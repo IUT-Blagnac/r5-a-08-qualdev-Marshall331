@@ -106,6 +106,7 @@ image::https://github.com/IUT-Blagnac/r5-a-08-qualdev-Marshall331/blob/main/TP2/
 
 == TP3
 
+Le but de ces tests était de vérifier la bonne génération des données de tests.
 
 === Implémentation 
 
