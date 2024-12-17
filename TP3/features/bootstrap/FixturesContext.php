@@ -1,20 +1,15 @@
 <?php
 
 use Behat\Behat\Context\Context;
-use Behat\Gherkin\Node\PyStringNode;
-use Behat\Gherkin\Node\TableNode;
+use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Entity\User;
-use App\Entity\Address;
-use App\Entity\Profile;
-use App\Entity\Category;
-use App\Entity\Article;
+
 /**
  * Defines application features from the specific context.
  */
 class FeatureContext implements Context
 {
-    private $entityManager;
+    private $connection;
     private $nbUsers = 0;
     private $nbAddresses = 0;
     private $nbProfiles = 0;
@@ -23,15 +18,10 @@ class FeatureContext implements Context
 
     /**
      * Initializes context.
-     *
-     * Every scenario gets its own context instance.
-     * You can also pass arbitrary arguments to the
-     * context constructor through behat.yml.
      */
-    public function __construct(
-        // EntityManagerInterface $entityManager
-        ) {
-        // $this->entityManager = $entityManager;
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->connection = $entityManager->getConnection();
     }
 
     /**
@@ -39,7 +29,7 @@ class FeatureContext implements Context
      */
     public function theDatabaseIsResetAndFixturesAreLoaded(): void
     {
-        // exec('php bin/console doctrine:fixtures:load --no-interaction');
+        exec('php bin/console doctrine:fixtures:load --no-interaction');
     }
 
     /**
@@ -47,7 +37,9 @@ class FeatureContext implements Context
      */
     public function iRetrieveAllUsers(): void
     {
-        // $this->nbUsers = count($this->entityManager->getRepository(User::class)->findAll());
+        $sql = 'SELECT COUNT(*) as total FROM user';
+        $result = $this->connection->fetchAssociative($sql);
+        $this->nbUsers = $result['total'];
     }
 
     /**
@@ -55,9 +47,9 @@ class FeatureContext implements Context
      */
     public function thereShouldBeUsersInTheDatabase($arg1): void
     {
-        // if ($this->nbUsers !== (int) $arg1) {
-        //     throw new \Exception("Expected $arg1 users, but found $this->nbUsers.");
-        // }
+        if ($this->nbUsers !== (int) $arg1) {
+            throw new \Exception("Expected $arg1 users, but found $this->nbUsers.");
+        }
     }
 
     /**
@@ -65,7 +57,9 @@ class FeatureContext implements Context
      */
     public function iRetrieveAllAddresses(): void
     {
-        // $this->nbAddresses = count($this->entityManager->getRepository(Address::class)->findAll());
+        $sql = 'SELECT COUNT(*) as total FROM address';
+        $result = $this->connection->fetchAssociative($sql);
+        $this->nbAddresses = $result['total'];
     }
 
     /**
@@ -73,9 +67,9 @@ class FeatureContext implements Context
      */
     public function thereShouldBeAddressesInTheDatabase($arg1): void
     {
-        // if ($this->nbAddresses !== (int) $arg1) {
-        //     throw new \Exception("Expected $arg1 addresses, but found $this->nbAddresses.");
-        // }
+        if ($this->nbAddresses !== (int) $arg1) {
+            throw new \Exception("Expected $arg1 addresses, but found $this->nbAddresses.");
+        }
     }
 
     /**
@@ -83,7 +77,9 @@ class FeatureContext implements Context
      */
     public function iRetrieveAllProfiles(): void
     {
-        // $this->nbProfiles = count($this->entityManager->getRepository(Profile::class)->findAll());
+        $sql = 'SELECT COUNT(*) as total FROM profile';
+        $result = $this->connection->fetchAssociative($sql);
+        $this->nbProfiles = $result['total'];
     }
 
     /**
@@ -91,9 +87,9 @@ class FeatureContext implements Context
      */
     public function thereShouldBeProfilesInTheDatabase($arg1): void
     {
-        // if ($this->nbProfiles !== (int) $arg1) {
-        //     throw new \Exception("Expected $arg1 profiles, but found $this->nbProfiles.");
-        // }
+        if ($this->nbProfiles !== (int) $arg1) {
+            throw new \Exception("Expected $arg1 profiles, but found $this->nbProfiles.");
+        }
     }
 
     /**
@@ -101,7 +97,9 @@ class FeatureContext implements Context
      */
     public function iRetrieveAllCategories(): void
     {
-        // $this->nbCategories = count($this->entityManager->getRepository(Category::class)->findAll());
+        $sql = 'SELECT COUNT(*) as total FROM category';
+        $result = $this->connection->fetchAssociative($sql);
+        $this->nbCategories = $result['total'];
     }
 
     /**
@@ -109,9 +107,9 @@ class FeatureContext implements Context
      */
     public function thereShouldBeCategoriesInTheDatabase($arg1): void
     {
-        // if ($this->nbCategories !== (int) $arg1) {
-        //     throw new \Exception("Expected $arg1 categories, but found $this->nbCategories.");
-        // }
+        if ($this->nbCategories !== (int) $arg1) {
+            throw new \Exception("Expected $arg1 categories, but found $this->nbCategories.");
+        }
     }
 
     /**
@@ -119,7 +117,9 @@ class FeatureContext implements Context
      */
     public function iRetrieveAllArticles(): void
     {
-        // $this->nbArticles = count($this->entityManager->getRepository(Article::class)->findAll());
+        $sql = 'SELECT COUNT(*) as total FROM article';
+        $result = $this->connection->fetchAssociative($sql);
+        $this->nbArticles = $result['total'];
     }
 
     /**
@@ -127,9 +127,9 @@ class FeatureContext implements Context
      */
     public function thereShouldBeArticlesInTheDatabase($arg1): void
     {
-        // if ($this->nbArticles !== (int) $arg1) {
-        //     throw new \Exception("Expected $arg1 articles, but found $this->nbArticles.");
-        // }
+        if ($this->nbArticles !== (int) $arg1) {
+            throw new \Exception("Expected $arg1 articles, but found $this->nbArticles.");
+        }
     }
 
     /**
@@ -137,13 +137,13 @@ class FeatureContext implements Context
      */
     public function eachArticleShouldHaveAtLeastOneCategory(): void
     {
-        // $articles = $this->entityManager->getRepository(Article::class)->findAll();
+        $sql = 'SELECT a.id FROM article a LEFT JOIN article_category ac ON a.id = ac.article_id WHERE ac.category_id IS NULL';
+        $result = $this->connection->fetchAllAssociative($sql);
 
-        // foreach ($articles as $article) {
-        //     if ($article->getCategories()->isEmpty()) {
-        //         throw new \Exception("Article ID {$article->getId()} does not have any categories.");
-        //     }
-        // }
+        if (count($result) > 0) {
+            $ids = implode(', ', array_column($result, 'id'));
+            throw new \Exception("Articles with IDs $ids do not have any categories.");
+        }
     }
 
     /**
@@ -151,12 +151,12 @@ class FeatureContext implements Context
      */
     public function eachArticleShouldBeLinkedToAUser(): void
     {
-        // $articles = $this->entityManager->getRepository(Article::class)->findAll();
+        $sql = 'SELECT id FROM article WHERE user_id IS NULL';
+        $result = $this->connection->fetchAllAssociative($sql);
 
-        // foreach ($articles as $article) {
-        //     if ($article->getUser() === null) {
-        //         throw new \Exception("Article ID {$article->getId()} is not linked to a user.");
-        //     }
-        // }
+        if (count($result) > 0) {
+            $ids = implode(', ', array_column($result, 'id'));
+            throw new \Exception("Articles with IDs $ids are not linked to a user.");
+        }
     }
 }
