@@ -285,3 +285,10 @@ Feature: Blog Fixtures Data
 
 image::https://github.com/IUT-Blagnac/r5-a-08-qualdev-Marshall331/blob/main/TP3/Passage%20des%20tests.png[alt="Passage des tests réussis"]
 
+== TP4
+
+=== Tests : 
+
+image::https://github.com/IUT-Blagnac/r5-a-08-qualdev-Marshall331/blob/main/TP4/Test_1.png[alt="Passage des tests réussis"]
+
+image::https://github.com/IUT-Blagnac/r5-a-08-qualdev-Marshall331/blob/main/TP4/Test_2.png[alt="Passage des tests réussis"]
